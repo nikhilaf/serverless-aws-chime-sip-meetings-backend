@@ -18,7 +18,10 @@ Lambda deployment
 - Take the endpoint URL.
 - clone the [Frontend demo repo](https://github.com/WebRTCventures/simple-chime-frontend)
 - Change the URL [here](https://github.com/WebRTCventures/simple-chime-frontend/blob/main/src/App.js#L165)
-- Test the application after setup s3 and sip media application.
+- ```  npm i   ```
+- ```  npm start   ```
+- check in the browser with ```    https://localhost:3000  ```
+- Enter room name and test the meeting after setup s3 and sip media application.
 
 S3 setup
 --------
