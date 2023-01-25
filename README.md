@@ -16,7 +16,9 @@ S3 setup
 1. Use us-east-1.
 2. Create a s3 bucket name sip-chime-audio-files.
 3. Copy all audio file from audio-file folder and past it in the s3bucket. or use
+    ```
     aws s3 cp ./audio-file/ s3://<bucketName>/ --recursive --exclude "*" --include "*.wav" --no-guess-mime-type --content-type="audio/wav" 
+    ```
 
 Setting up the sip media application
 ------------------------------
