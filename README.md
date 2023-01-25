@@ -4,9 +4,9 @@
 Prerequisites
 --------------
 - Install [AWS Command Line Interface](https://aws.amazon.com/cli/)
+- Install [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 - Clone the repo
 - Get permission to Amazon Chime Administration Console
-- Install [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
 
 Lambda deployment
 ------------------
