@@ -1,7 +1,15 @@
 # serverless-aws-chime-sip-meetings-backend
 
 
-configure aws-cli and sam 
+Prerequisites
+--------------
+- Install [AWS Command Line Interface](https://aws.amazon.com/cli/)
+- Clone the repo
+- Get permission to Amazon Chime Administration Console
+- Install [AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
+
+Lambda deployment
+------------------
 
 1. ```  npm i   ```
 2. ```  sam build   ```
