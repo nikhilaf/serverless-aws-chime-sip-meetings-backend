@@ -1,0 +1,15 @@
+{
+  "name": "serverless-aws-chime-sip-meetings-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handlers.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1291.0",
+    "uuid": "^9.0.0"
+  }
+}

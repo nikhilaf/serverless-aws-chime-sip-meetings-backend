@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Sample serverless Conference and sip call with Amazon Chime Demo
+
+Globals:
+ Function:
+   Runtime: nodejs12.x
+   Timeout: 30
+   MemorySize: 128
+
+Parameters:
+  BucketName:
+    Type: String
+    Description: sip audio files Bucket Name
+    Default: sip-chime-audio-files
+
+Resources:
+ SipDailInFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+       - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+       
+ # Chime Resources Access Policy
+ ChimeMeetingsAccessPolicy:
+   Type: AWS::IAM::Policy
+   Properties:
+     PolicyName: ChimeMeetingsAccess
+     PolicyDocument:
+       Version: "2012-10-17"
+       Statement:
+         - Effect: Allow
+           Action:
+             - 'chime:CreateMeeting'
+             - 'chime:ListMeetings'
+             - 'chime:CreateAttendee'
+           Resource: '*'
+     Roles:
+       # This function role will have this policy
+       - Ref: ConferenceStartFunctionRole
+       - Ref: SipDailInFunctionRole
+
+ S3BucketPolicy:
+   Type: AWS::S3::BucketPolicy
+   Properties:
+     PolicyDocument:
+       Id: SIPMediaApplicatPolicy
+       Version: '2012-10-17'
+       Statement:
+       - Sid: SIPMediaApplicationRead
+         Effect: Allow
+         Principal:
+           Service:
+           - voiceconnector.chime.amazonaws.com
+         Action:
+         - s3:GetObject
+         - s3:PutObject
+         - s3:PutObjectAcl
+         Resource:
+           Fn::Join:
+           - ''
+           - - 'arn:aws:s3:::'
+             - Ref: BucketName
+             - /*
+     Bucket:
+       !Ref BucketName 
+
+ # Conference start function definition
+ ConferenceStartFunction:
+   Type: AWS::Serverless::Function
+   Properties:
+     Handler: handlers.start
+     Events:
+        Api1:
+         Type: Api
+         Properties:
+           Path: /start
+           Method: GET
+ # Sip events handling function definition        
+ SipDailInFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handlers.sip
+      Role: !GetAtt SipDailInFunctionRole.Arn
+      Environment:
+        Variables:
+          BUCKET_NAME:
+            Ref: BucketName
+Outputs:
+ ApiURL:
+   Description: "API endpoint URL for Prod environment"
+   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
