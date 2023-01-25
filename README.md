@@ -3,9 +3,9 @@
 
 configure aws-cli and sam 
 
-1. npm i
-2. sam build
-3. sam deploy --guided
+1. ```  npm i   ```
+2. ```  sam build   ```
+3. ```  sam deploy --guided   ```
 4. Use us-east-1 region in option while in deployment
 5. Take the endpoint URL and use in the below front end repo https://github.com/WebRTCventures/simple-chime-frontend
 6. Change the URL here https://github.com/WebRTCventures/simple-chime-frontend/blob/main/src/App.js#L165
